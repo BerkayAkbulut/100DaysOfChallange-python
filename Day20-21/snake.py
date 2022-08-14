@@ -15,12 +15,20 @@ class Snake():
 
     def creat_snake(self):
         for position in STARTING_POSİTİONS:
-            snake_object = Turtle(shape=("square"))
-            snake_object.speed(10)
-            snake_object.penup()
-            snake_object.color("white")
-            snake_object.goto(position)
-            self.snake.append(snake_object)
+            self.add_cell(position)
+
+    def add_cell(self,position):
+        snake_object = Turtle(shape=("square"))
+        snake_object.speed(10)
+        snake_object.penup()
+        snake_object.color("white")
+        snake_object.goto(position)
+        self.snake.append(snake_object)
+
+
+    def extend(self):
+        self.add_cell(self.snake[-1].position())
+
 
     def move(self):
         for snake_num in range(len(self.snake) - 1, 0, -1):
