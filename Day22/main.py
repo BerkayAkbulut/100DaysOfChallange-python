@@ -12,15 +12,13 @@ bar=Paddle()
 
 screen.listen()
 screen.onkey(bar.up,"Up")
-screen.onkey(bar.down,"Down")
-
+#screen.onkey(bar.down,"Down")
 
 game_is_on=True
 while game_is_on:
     screen.update()
+    screen.onkey(bar.up, "Up")
     time.sleep(0.1)
-
-
 
 
 

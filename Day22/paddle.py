@@ -28,10 +28,11 @@ class Paddle():
         for paddle_num in range(len(self.paddle) - 1, 0, -1):
             new_x = self.paddle[paddle_num - 1].xcor()
             new_y = self.paddle[paddle_num - 1].ycor()
+            print(f"x:{new_x} y:{new_y}")
             self.paddle[paddle_num].goto(x=new_x, y=new_y)
+
         self.head_of_paddle.setheading(90)
         self.head_of_paddle.forward(MOVE_DISTANCE)
-
 
     def up(self):
         self.head_of_paddle.setheading(90)
