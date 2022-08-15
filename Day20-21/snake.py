@@ -25,11 +25,8 @@ class Snake():
         snake_object.goto(position)
         self.snake.append(snake_object)
 
-
     def extend(self):
         self.add_cell(self.snake[-1].position())
-
-
     def move(self):
         for snake_num in range(len(self.snake) - 1, 0, -1):
             new_x = self.snake[snake_num - 1].xcor()
@@ -37,7 +34,6 @@ class Snake():
             self.snake[snake_num].goto(x=new_x, y=new_y)
         self.head_of_snake.forward(MOVE_DISTANCE)
         #self.snake[0].left(90)
-
     def up(self):
         if self.head_of_snake.heading()!= DOWN:
             self.head_of_snake.setheading(UP)
