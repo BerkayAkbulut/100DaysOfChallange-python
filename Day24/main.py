@@ -11,16 +11,11 @@
 with open("./Input/Names/invited_names.txt", 'r') as invited_names:
     names = invited_names.readlines()
 
-with open("./Input/Letters/starting_letter.txt") as letter_context:
-    letter = letter_context.read()
-
-# print(letter.replace("[name]","berkay"))
-
 for name in names:
     with open("./Input/Letters/starting_letter.txt") as letter_context:
         letter = letter_context.read()
-    name=name.replace("\n","")
-    letter=letter.replace("[name]",name)
+    name = name.replace("\n", "")
+    letter = letter.replace("[name]", name)
     print(letter)
     with open(f'./Output/ReadyToSend/letter_for_{name}.txt', 'w') as f:
         f.write(letter)
