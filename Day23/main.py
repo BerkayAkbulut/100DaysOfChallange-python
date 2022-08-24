@@ -37,6 +37,6 @@ while game_is_on:
     for a_car in cars.cars:
         if a_car.xcor()<-350:
             cars.cars.remove(a_car)
-        if turtle.distance(a_car)<26:
+        if turtle.distance(a_car)<25:
             game_is_on=False
             #score.game_over()
