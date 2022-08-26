@@ -1,9 +1,17 @@
-import csv
+import pandas as pd
 
-with open("weather_data.csv") as data_file:
-    data=csv.reader(data_file)
-    tempatures = []
-    for row in data:
-        tempatures.append(row[1])
-    tempatures.pop(0)
-    print(tempatures)
+data=pd.read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+
+cinnamon=len(data[data["Primary Fur Color"]=="Cinnamon"])
+# print(cinnamon)
+gray=len(data[data["Primary Fur Color"]=="Gray"])
+# print(gray)
+black=len(data[data["Primary Fur Color"]=="Black"])
+# print(black)
+
+data_dict={
+    "Fur Color": ["Gray","Cinnamon","Black"],
+    "Count": [gray,cinnamon,black]
+}
+data_csv=pd.DataFrame(data_dict).to_csv()
+print(data_csv)
