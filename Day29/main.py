@@ -1,19 +1,26 @@
 from tkinter import *
+from tkinter import messagebox
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
-def add():
-    print("added")
-    with open("data.txt", "a") as f:
-        f.write(f"{input_website.get()} | {input_email.get()} | {input_password.get()} \n")
+def save():
+    if input_password.get() == "" or input_website.get() == "":
+        messagebox.showwarning(title="Oops!", message="Please dont leave any fields empty!")
+    else:
+        is_ok = messagebox.askokcancel(title=input_website.get(),
+                                       message=f"These are the details entered: \nEmail: {input_email.get()}"
+                                               f" \nPassword:{input_password.get()} \nIs it ok to save?")
+        if is_ok:
+            with open("data.txt", "a") as f:
+                f.write(f"{input_website.get()} | {input_email.get()} | {input_password.get()} \n")
 
-    input_website.delete(0, 'end')
-    input_email.delete(0, 'end')
-    input_password.delete(0, 'end')
-
+            input_website.delete(0, 'end')
+            # input_email.delete(0, 'end')
+            input_password.delete(0, 'end')
+            print("saved")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -49,7 +56,7 @@ input_password.grid(column=1, row=3)
 # BUTTONS
 button_gen_pass = Button(text="Generate Password")
 button_gen_pass.grid(column=2, row=3)
-button_add = Button(text="Add", width=36, command=add)
+button_add = Button(text="Add", width=36, command=save)
 button_add.grid(column=1, row=4)
 
 window.mainloop()
