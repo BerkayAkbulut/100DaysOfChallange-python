@@ -20,9 +20,9 @@ def generate_password():
 
     password_letters = [random.choice(letters) for _ in range(random.randint(8, 10))]
     password_symbols = [random.choice(symbols) for _ in range(random.randint(2, 4))]
-    pasword_numbers = [random.choice(numbers) for _ in range(random.randint(2, 4))]
+    password_numbers = [random.choice(numbers) for _ in range(random.randint(2, 4))]
 
-    password_list = password_letters + password_symbols + pasword_numbers
+    password_list = password_letters + password_symbols + password_numbers
 
     random.shuffle(password_list)
 
@@ -43,8 +43,15 @@ def save():
     if input_password.get() == "" or input_website.get() == "":
         messagebox.showwarning(title="Oops!", message="Please dont leave any fields empty!")
     else:
-        with open("data.json", "w") as data_file:
-            json.dump(new_data,data_file)
+        with open("data.json", "r") as data_file:
+            # Reading old data
+            data = json.load(data_file)
+            # Updating old data with new data
+            data.update(new_data)
+
+        with open("data.json","w") as data_file:
+            # Saving updated data
+            json.dump(data, data_file, indent=4)
 
             input_website.delete(0, 'end')
             # input_email.delete(0, 'end')
