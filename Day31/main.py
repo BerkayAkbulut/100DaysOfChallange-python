@@ -1,6 +1,15 @@
 from tkinter import *
+import pandas as pd
 
 BACKGROUND_COLOR = "#B1DDC6"
+WORD = "word"
+
+
+def newWord():
+    new_x_word = (df["English"].sample()).values[0]
+    # print(df.head)
+    canvas.itemconfig(word_text, text=new_x_word)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -16,15 +25,18 @@ canvas.grid(column=0, row=0, columnspan=2)
 
 # LABELS
 canvas.create_text(400, 150, text="Title", fill="black", font=('Ariel 40 italic'))
-canvas.create_text(400, 263, text="word", fill="black", font=('Ariel 60 bold'))
+word_text = canvas.create_text(400, 263, text=WORD, fill="black", font=('Ariel 60 bold'))
 
 # BUTTONS
 wrong_image = PhotoImage(file="images/wrong.png")
-wrong_button = Button(image=wrong_image, highlightthickness=0)
+wrong_button = Button(image=wrong_image, highlightthickness=0, command=newWord)
 wrong_button.grid(column=0, row=1, padx=50, pady=20)
 
 right_image = PhotoImage(file="images/right.png")
-right_button = Button(image=right_image, highlightthickness=0)
+right_button = Button(image=right_image, highlightthickness=0, command=newWord)
 right_button.grid(column=1, row=1, padx=50, pady=20)
+
+# Read data
+df = pd.read_csv("data/english_words.csv")
 
 window.mainloop()
