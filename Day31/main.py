@@ -1,3 +1,4 @@
+import random
 from tkinter import *
 import pandas as pd
 
@@ -6,9 +7,10 @@ WORD = "word"
 
 
 def newWord():
-    new_x_word = (df["English"].sample()).values[0]
-    # print(df.head)
-    canvas.itemconfig(word_text, text=new_x_word)
+    current_card = random.choice(df_list)
+
+    canvas.itemconfig(lang_of_text, text="English")
+    canvas.itemconfig(word_text, text=current_card["English"])
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -24,7 +26,7 @@ canvas.create_image(400, 263, image=flashcard)
 canvas.grid(column=0, row=0, columnspan=2)
 
 # LABELS
-canvas.create_text(400, 150, text="Title", fill="black", font=('Ariel 40 italic'))
+lang_of_text = canvas.create_text(400, 150, text="Title", fill="black", font=('Ariel 40 italic'))
 word_text = canvas.create_text(400, 263, text=WORD, fill="black", font=('Ariel 60 bold'))
 
 # BUTTONS
@@ -38,5 +40,8 @@ right_button.grid(column=1, row=1, padx=50, pady=20)
 
 # Read data
 df = pd.read_csv("data/english_words.csv")
+df_list = df.to_dict(orient="records")
+
+newWord()
 
 window.mainloop()
