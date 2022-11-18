@@ -1,16 +1,32 @@
 import random
 from tkinter import *
 import pandas as pd
+import time
 
 BACKGROUND_COLOR = "#B1DDC6"
 WORD = "word"
 
+current_card = {}
+
+
+# ------------TIMING--------------------------
 
 def newWord():
+    global current_card, flip_timer
+    window.after_cancel(flip_timer)
+
     current_card = random.choice(df_list)
 
-    canvas.itemconfig(lang_of_text, text="English")
-    canvas.itemconfig(word_text, text=current_card["English"])
+    canvas.itemconfig(card_backgroud, image=flashcard)
+    canvas.itemconfig(lang_of_text, text="English", fill="black")
+    canvas.itemconfig(word_text, text=current_card["English"], fill="black")
+    flip_timer = window.after(3000, func=flip_card)
+
+
+def flip_card():
+    canvas.itemconfig(card_backgroud, image=back_flashcard)
+    canvas.itemconfig(lang_of_text, text="Türkçe", fill="white")
+    canvas.itemconfig(word_text, text=current_card["Turkish"], fill="white")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -18,11 +34,14 @@ window = Tk()
 window.title("Flash Card")
 window.config(padx=50, pady=50, background=BACKGROUND_COLOR)
 
+flip_timer = window.after(3000, func=flip_card)
+
 canvas = Canvas(window, width=800, height=526)
 canvas.config(background=BACKGROUND_COLOR, highlightthickness=0)
 
 flashcard = PhotoImage(file="images/card_front.png")
-canvas.create_image(400, 263, image=flashcard)
+back_flashcard = PhotoImage(file="images/card_back.png")
+card_backgroud = canvas.create_image(400, 263, image=flashcard)
 canvas.grid(column=0, row=0, columnspan=2)
 
 # LABELS
@@ -43,5 +62,8 @@ df = pd.read_csv("data/english_words.csv")
 df_list = df.to_dict(orient="records")
 
 newWord()
+# window.after(3000,newWord_Tr(current_card))
+# newWord_Tr(current_card)
+
 
 window.mainloop()
